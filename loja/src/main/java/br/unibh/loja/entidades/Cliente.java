@@ -28,8 +28,8 @@ import org.hibernate.validator.constraints.br.CPF;
 @Table(name = "tb_cliente", uniqueConstraints = { @UniqueConstraint(columnNames = { "cpf" }),
 		@UniqueConstraint(columnNames = { "login" }) })
 
-@NamedQueries({ @NamedQuery(name = "Cliente.findByName", query = "select c from Cliente c where c.nome like :nome")})
-
+@NamedQueries({ @NamedQuery(name = "Cliente.findByName", query = "select c from Cliente c where c.nome like :nome"),
+		@NamedQuery(name = "Cliente.findByPerfil", query = "select c from Cliente c where c.perfil =:perfil") })
 
 public class Cliente {
 

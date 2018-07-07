@@ -27,7 +27,6 @@ public class RestCategoria {
 	@Path("new")
 	@Produces(MediaType.APPLICATION_JSON)
 	public Categoria incluiCategoria(Categoria categoria) throws Exception {
-		System.out.println(categoria.getDescricao());
 		List<Categoria> aux = sc.findByName(categoria.getDescricao());
 		if (aux == null || aux.isEmpty()) {
 			return sc.insert(categoria);

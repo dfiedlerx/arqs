@@ -61,6 +61,12 @@ public class RestCliente {
 		return sc.findAll();
 	}
 	
+	@GET
+	@Path("perfil/{perfil}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Cliente> buscaTodosClientesPerfil(@PathParam("perfil") String perfil) throws Exception {
+		return sc.findByPerfil(perfil);
+	}
 	
 	@GET
 	@Path("{id}")

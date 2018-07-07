@@ -1,6 +1,5 @@
 package br.unibh.loja.integracao;
 
-
 import java.util.List;
 
 import javax.inject.Inject;
@@ -14,42 +13,48 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 import br.unibh.loja.entidades.Produto;
-import br.unibh.loja.negocio.ServicoCategoria;
 import br.unibh.loja.negocio.ServicoProduto;
 import io.swagger.annotations.Api;
-
 
 @Api
 @Path("produto")
 public class RestProduto {
-	
+
 	@Inject
 	private ServicoProduto sp;
-	private ServicoCategoria sc;
 	
 	@POST
 	@Path("new")
 	@Produces(MediaType.APPLICATION_JSON)
 	public void incluiProduto(Produto produto) throws Exception {
-		sp.insert(produto);
+		List<Produto> aux = sp.findByName(produto.getNome());
+		if (aux == null || aux.isEmpty()) {
+			sp.insert(produto);
+		} else {
+			throw new Exception("O produto já existe.");
+		}
 	}
-	
-	 @PUT
-	 @Path("{id}")
-	 @Produces(MediaType.APPLICATION_JSON)
-	 public Produto update(@PathParam("id") Long id, Produto produto) throws Exception {
-			
-			sp.update(produto);
-			return sp.find(id);
-	 }
-	
-	
+
+	@PUT
+	@Path("{id}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Produto update(@PathParam("id") Long id, Produto produto) throws Exception {
+
+		sp.update(produto);
+		return sp.find(id);
+	}
+
 	@DELETE
 	@Path("{id}")
 	public void delete(@PathParam("id") Long id) throws Exception {
-		sp.delete(sp.find(id));
+		List<Produto> aux = sp.findByCategoria(id);
+		if (aux == null || aux.isEmpty()) {
+			sp.delete(sp.find(id));
+		} else {
+			throw new Exception("O produto está associado a uma Categoria e não pode ser excluído.");
+		}
 	}
-	
+
 	@GET
 	@Path("list")
 	@Produces(MediaType.APPLICATION_JSON)
@@ -63,12 +68,11 @@ public class RestProduto {
 	public Produto hello(@PathParam("id") final Long id) throws Exception {
 		return sp.find(id);
 	}
-	
+
 	@GET
 	@Path("categoria/{id}")
 	@Produces(MediaType.APPLICATION_JSON)
 	public List<Produto> retornaProdutoCategoria(@PathParam("id") Long id) throws Exception {
-		//Categoria aux = (Categoria) sc.find(id);
 		return sp.findByCategoria(id);
 	}
 

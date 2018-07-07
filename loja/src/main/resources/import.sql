@@ -98,3 +98,6 @@ INSERT INTO `tb_produto` (`id`,`descricao`,`fabricante`,`nome`,`preco`,`version`
 INSERT INTO `tb_produto` (`id`,`descricao`,`fabricante`,`nome`,`preco`,`version`,`id_categoria`) VALUES (26,"Eu Associates","Rhona","Dominic","632.01","1",26);
 INSERT INTO `tb_produto` (`id`,`descricao`,`fabricante`,`nome`,`preco`,`version`,`id_categoria`) VALUES (27,"Vel Arcu Eu Industries","Chelsea","Maggie","502.75","1",27);
 INSERT INTO `tb_produto` (`id`,`descricao`,`fabricante`,`nome`,`preco`,`version`,`id_categoria`) VALUES (28,"Pharetra Corporation","Sarah","Hiroko","597.01","1",28);
+UPDATE `tb_cliente` SET `perfil`= 'Standard' WHERE id >= 1 and id < 20;
+UPDATE `tb_cliente` SET `perfil`= 'Standard Premium' WHERE id >= 20 and id < 30;
+UPDATE `tb_cliente` SET `perfil`= 'Standard Premium Gold' WHERE id >= 30 and id <= 37;
