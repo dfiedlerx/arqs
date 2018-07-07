@@ -54,7 +54,7 @@ public class Cliente {
 	private String senha;
 
 	@NotBlank
-	@Size(min = 10, max = 100)
+	@Size(min = 8, max = 100)
 	@Pattern(regexp = "[A-zÀ-ú.´ ]*", message = "Caracteres permitidos: letras, espaços, ponto e aspas simples")
 	@Column(length = 100, nullable = false)
 	private String perfil;
