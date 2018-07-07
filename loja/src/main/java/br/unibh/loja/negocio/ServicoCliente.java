@@ -1,5 +1,9 @@
 package br.unibh.loja.negocio;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.ejb.LocalBean;
@@ -21,11 +25,37 @@ public class ServicoCliente implements DAO<Cliente, Long> {
 	public Cliente insert(Cliente c) throws Exception {
 		log.info("Persistindo " + c);
 		em.persist(c);
+		c.setPerfil("Standard");
 		return c;
 	}
 
 	public Cliente update(Cliente c) throws Exception {
 		log.info("Atualizando " + c);
+		
+		SimpleDateFormat d = new SimpleDateFormat("yyyy");
+						
+		Date date = new Date(System.currentTimeMillis());
+				
+		SimpleDateFormat d1 = new SimpleDateFormat("yyyy");
+				
+		int ano = Integer.parseInt(d.format(c.getDataCadastro()));
+		
+		int ano1 =  Integer.parseInt(d1.format(date));
+		
+		int anoTotal = ano1 - ano;
+		
+		if(anoTotal < 1 )
+		{
+			c.setPerfil("Standard");
+		}
+		else if(anoTotal > 1 || ano < 5 )
+		{
+			c.setPerfil("Standard, Premium");
+		}
+		else if(anoTotal >= 5 )
+		{
+			c.setPerfil("Standard, Premium, Gold");
+		}
 		return em.merge(c);
 	}
 
