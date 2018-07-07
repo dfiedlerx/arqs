@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+	<ui:define name="content">
+		<h:form id="cad" rendered="#{categoriamb.categoria != null}">
+			<h:panelGroup id="cadastro">
+				<p:panel>
+					<h:outputText value="Cadastro de Categoria"
+						style="font-size:18px;font-weight:bold" />
+					<p:messages autoUpdate="true" closable="true" />
+					<p:panelGrid columns="3" styleClass="ui-noborder">
+						<p:outputLabel value="Descrição:" />
+						<p:inputText id="descricao" value="#{categoriamb.categoria.descricao}" size="50" />
+						<p:message for="descricao" errorClass="invalid" />
+					</p:panelGrid>
+					<p:commandButton id="gravar" action="#{categoriamb.gravar}"
+						value="Gravar" update="@all" />
+					<p:commandButton id="cancelar" action="#{categoriamb.pesquisar}"
+						value="Voltar" immediate="true" update="@all" />
+				</p:panel>
+			</h:panelGroup>
+		</h:form>
+		<p:panel id="pesquisa" rendered="#{categoriamb.categoria == null}">
+			<h:outputText value="Lista de Categorias"
+				style="font-size:18px;font-weight:bold" />
+			<h:form id="arg">
+				<p:panelGrid columns="4" styleClass="ui-noborder">
+					<p:outputLabel value="Descrição:" />
+					<p:inputText id="nomeArg" value="#{categoriamb.nomeArg}" />
+					<p:commandButton id="pesquisar" action="#{categoriamb.pesquisar}"
+						value="Pesquisar" update="@all" />
+					<p:commandButton id="novo" action="#{categoriamb.novo}" value="Novo"
+						update="@all" />
+				</p:panelGrid>
+			</h:form>
+			<h:panelGroup rendered="#{empty categoriamb.lista}">
+				<h:outputText value="Nenhum registro foi encontrado" />
+			</h:panelGroup>
+			<h:form id="edt">
+				<p:messages autoUpdate="true" closable="true" />
+				<p:dataTable id="tabela" var="categoria" value="#{categoriamb.lista}"
+					rendered="#{not empty categoriamb.lista}"
+					onrowclick="selectRow('#{categoria.id}')" paginator="true" rows="15">
+					<p:column headerText="Id" width="10%" sortBy="#{categoria.id}">
+						<div align="center">
+							<h:outputText value="#{categoria.id}" />
+						</div>
+					</p:column>
+					<p:column headerText="Descrição" width="35%" sortBy="#{categoria.descricao}">
+						<h:outputText value="#{categoria.descricao}" />
+					</p:column>
+					<p:column headerText="Comandos" width="20%">
+						<div align="center">
+							<p:commandLink id="editar" action="#{categoriamb.editar(categoria.id)}"
+								value="Editar" update="@all" />
+							<h:outputText value=" " />
+							<p:commandLink id="excluir"
+								action="#{categoriamb.excluir(categoria.id)}" value="Excluir"
+								update="@all">
+								<p:confirm header="Confirmação"
+									message="Você confirma a exclusão da categoria #{categoria.descricao}?"
+									icon="ui-icon-alert" />
+							</p:commandLink>
+						</div>
+					</p:column>
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+					id="confirmDialog">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>

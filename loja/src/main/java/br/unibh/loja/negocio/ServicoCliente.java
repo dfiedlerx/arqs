@@ -42,7 +42,7 @@ public class ServicoCliente implements DAO<Cliente, Long> {
 		
 		int ano1 =  Integer.parseInt(d1.format(date));
 		
-		int anoTotal = ano - ano1;
+		int anoTotal = ano1 - ano;
 		
 		if(anoTotal <= 1 )
 		{
@@ -82,8 +82,8 @@ public class ServicoCliente implements DAO<Cliente, Long> {
 		return em.createNamedQuery("Cliente.findByName").setParameter("nome", "%" + name + "%").getResultList();
 	}
 	@SuppressWarnings("unchecked")
-	public List<Cliente> findByPerfil(String perfil) throws Exception {
+	public List<Cliente> find(String nome, String perfil) throws Exception {
 		log.info("Encontrando o " + perfil);
-		return em.createNamedQuery("Cliente.findByPerfil").setParameter("perfil",perfil).getResultList();
+		return em.createNamedQuery("Cliente.find").setParameter("perfil",perfil).setParameter("nome",nome).getResultList();
 	}
 }

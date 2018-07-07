@@ -1,5 +1,6 @@
 package br.unibh.loja.entidades;
 
+import java.io.Serializable;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -14,7 +15,6 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
-import javax.validation.constraints.Max;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Past;
 import javax.validation.constraints.Pattern;
@@ -22,16 +22,17 @@ import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotBlank;
-import org.hibernate.validator.constraints.br.CPF;
 
 @Entity
 @Table(name = "tb_cliente", uniqueConstraints = { @UniqueConstraint(columnNames = { "cpf" }),
 		@UniqueConstraint(columnNames = { "login" }) })
 
 @NamedQueries({ @NamedQuery(name = "Cliente.findByName", query = "select c from Cliente c where c.nome like :nome"),
-		@NamedQuery(name = "Cliente.findByPerfil", query = "select c from Cliente c where c.perfil =:perfil") })
+		@NamedQuery(name = "Cliente.find", query = "select c from Cliente c where c.perfil like :perfil and c.nome like :nome") })
 
-public class Cliente {
+public class Cliente implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

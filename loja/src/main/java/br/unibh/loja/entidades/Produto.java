@@ -1,5 +1,6 @@
 package br.unibh.loja.entidades;
 
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 import javax.persistence.Column;
@@ -26,7 +27,9 @@ import org.hibernate.validator.constraints.NotBlank;
 @NamedQueries({ @NamedQuery(name = "Produto.findByName", query = "select p from Produto p where p.nome like :nome"),
 		        @NamedQuery(name = "Produto.findByCategoria", query = "select p from Produto p where p.categoria.id =:id")})
 
-public class Produto {
+public class Produto implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

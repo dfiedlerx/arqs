@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+	<ui:define name="content">
+		<h:form id="cad" rendered="#{clientemb.cliente != null}">
+			<h:panelGroup id="cadastro">
+				<p:panel>
+					<h:outputText value="Cadastro de Cliente"
+						style="font-size:18px;font-weight:bold" />
+					<p:messages autoUpdate="true" closable="true" />
+					<p:panelGrid columns="3" styleClass="ui-noborder">
+						<p:outputLabel value="Nome:" />
+						<p:inputText id="nome" value="#{clientemb.cliente.nome}" size="50" />
+						<p:message for="nome" errorClass="invalid" />
+						<p:outputLabel value="Login:" />
+						<p:inputText id="login" value="#{clientemb.cliente.login}" size="50" />
+						<p:message for="login" errorClass="invalid" />
+						<p:outputLabel value="Senha:" />
+						<p:inputText id="senha" value="#{clientemb.cliente.senha}" size="50" />
+						<p:message for="senha" errorClass="invalid" />
+						<p:outputLabel value="Perfil:" />
+						<p:inputText id="perfil" value="#{clientemb.cliente.perfil}" size="50" />
+						<p:message for="perfil" errorClass="invalid" />
+						<p:outputLabel value="CPF:" />
+						<p:inputText id="cpf" value="#{clientemb.cliente.cpf}" size="50" />
+						<p:message for="cpf" errorClass="invalid" />
+						<p:outputLabel value="Telefone:" />
+						<p:inputText id="telefone" value="#{clientemb.cliente.telefone}" size="50" />
+						<p:message for="telefone" errorClass="invalid" />
+						<p:outputLabel value="E-mail:" />
+						<p:inputText id="email" value="#{clientemb.cliente.email}" size="50" />
+						<p:message for="email" errorClass="invalid" />
+						<p:outputLabel value="Data de Nascimento:" />
+						<p:inputText id="dataNascimento" value="#{clientemb.cliente.dataNascimento}" size="20" />
+						<p:message for="dataNascimento" errorClass="invalid" />
+						<p:outputLabel value="Data de Cadastro:" />
+						<p:inputText id="dataCadastro" value="#{clientemb.cliente.dataCadastro}" size="20" />
+						<p:message for="dataCadastro" errorClass="invalid" />
+					</p:panelGrid>
+					<p:commandButton id="gravar" action="#{clientemb.gravar}"
+						value="Gravar" update="@all" />
+					<p:commandButton id="cancelar" action="#{clientemb.pesquisar}"
+						value="Voltar" immediate="true" update="@all" />
+				</p:panel>
+			</h:panelGroup>
+		</h:form>
+		<p:panel id="pesquisa" rendered="#{clientemb.cliente == null}">
+			<h:outputText value="Lista de Clientes"
+				style="font-size:18px;font-weight:bold" />
+			<h:form id="arg">
+				<p:panelGrid columns="4" styleClass="ui-noborder">
+					<p:outputLabel value="Nome:" />
+					<p:inputText id="nomeArg" value="#{clientemb.nomeArg}" />	
+					<p:outputLabel value="Perfil:" />
+					<p:inputText id="perfilArg" value="#{clientemb.perfilArg}" />				
+					<p:commandButton id="pesquisar" action="#{clientemb.pesquisar}"
+						value="Pesquisar" update="@all" />
+					<p:commandButton id="novo" action="#{clientemb.novo}" value="Novo"
+						update="@all" />
+				</p:panelGrid>
+			</h:form>
+			<h:panelGroup rendered="#{empty clientemb.lista}">
+				<h:outputText value="Nenhum registro foi encontrado" />
+			</h:panelGroup>
+			<h:form id="edt">
+				<p:messages autoUpdate="true" closable="true" />
+				<p:dataTable id="tabela" var="cliente" value="#{clientemb.lista}"
+					rendered="#{not empty clientemb.lista}"
+					onrowclick="selectRow('#{cliente.id}')" paginator="true" rows="15">
+					<p:column headerText="Id" width="10%" sortBy="#{cliente.id}">
+						<div align="center">
+							<h:outputText value="#{cliente.id}" />
+						</div>
+					</p:column>
+					<p:column headerText="Nome" width="20%" sortBy="#{cliente.nome}">
+						<h:outputText value="#{cliente.nome}" />
+					</p:column>
+					<p:column headerText="Perfil" width="20%" sortBy="#{cliente.perfil}">
+						<h:outputText value="#{cliente.perfil}" />
+					</p:column>
+					<p:column headerText="Comandos" width="15%">
+						<div align="center">
+							<p:commandLink id="editar" action="#{clientemb.editar(cliente.id)}"
+								value="Editar" update="@all" />
+							<h:outputText value=" " />
+							<p:commandLink id="excluir"
+								action="#{clientemb.excluir(cliente.id)}" value="Excluir"
+								update="@all">
+								<p:confirm header="Confirmação"
+									message="Você confirma a exclusão do cliente #{cliente.nome}?"
+									icon="ui-icon-alert" />
+							</p:commandLink>
+						</div>
+					</p:column>
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+					id="confirmDialog">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>
