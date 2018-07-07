@@ -14,8 +14,6 @@ import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
@@ -25,7 +23,8 @@ import org.hibernate.validator.constraints.NotBlank;
 @Entity
 @Table(name = "tb_produto", uniqueConstraints = { @UniqueConstraint(columnNames = { "nome" }) })
 
-@NamedQueries({ @NamedQuery(name = "Produto.findByName", query = "select p from Produto p where p.nome like :nome") })
+@NamedQueries({ @NamedQuery(name = "Produto.findByName", query = "select p from Produto p where p.nome like :nome"),
+		        @NamedQuery(name = "Produto.findByCategoria", query = "select p from Produto p, Categoria c where c.id =:id")})
 
 public class Produto {
 

@@ -34,6 +34,8 @@ public class JaxRsActivator extends Application {
 		resources.add(JaxRsActivator.class);
 		resources.add(RestTest.class);
 		resources.add(RestCategoria.class);
+		resources.add(RestProduto.class);
+		resources.add(RestCliente.class);
 		return resources;
 	}
 }

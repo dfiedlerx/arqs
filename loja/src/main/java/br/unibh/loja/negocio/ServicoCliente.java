@@ -32,10 +32,10 @@ public class ServicoCliente implements DAO<Cliente, Long> {
 	public Cliente update(Cliente c) throws Exception {
 		log.info("Atualizando " + c);
 		
-		SimpleDateFormat d = new SimpleDateFormat("yyyy");
-						
 		Date date = new Date(System.currentTimeMillis());
-				
+		
+		SimpleDateFormat d = new SimpleDateFormat("yyyy");
+		
 		SimpleDateFormat d1 = new SimpleDateFormat("yyyy");
 				
 		int ano = Integer.parseInt(d.format(c.getDataCadastro()));
@@ -44,17 +44,17 @@ public class ServicoCliente implements DAO<Cliente, Long> {
 		
 		int anoTotal = ano1 - ano;
 		
-		if(anoTotal < 1 )
+		if(anoTotal <= 1 )
 		{
 			c.setPerfil("Standard");
 		}
 		else if(anoTotal > 1 || ano < 5 )
 		{
-			c.setPerfil("Standard, Premium");
+			c.setPerfil("Standard Premium");
 		}
 		else if(anoTotal >= 5 )
 		{
-			c.setPerfil("Standard, Premium, Gold");
+			c.setPerfil("Standard Premium Gold");
 		}
 		return em.merge(c);
 	}
