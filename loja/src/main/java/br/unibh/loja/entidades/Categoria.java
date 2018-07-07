@@ -8,6 +8,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Pattern;
+
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 @Table(name="tb_categoria", uniqueConstraints = {
@@ -20,6 +24,9 @@ public class Categoria {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private  Long id;
 	
+	@NotBlank
+	@Max(100)
+	@Pattern(regexp="[A-zÀ-ú.´-/ ]*", message="Caracteres permitidos: letras, espaços, barra, traços ,ponto e aspas simples")
 	@Column(length=100, nullable=false)
 	private  String descricao;
 	
