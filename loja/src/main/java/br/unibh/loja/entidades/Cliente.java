@@ -14,6 +14,27 @@ public class Cliente {
 	private String email;
 	private Date dataNascimento;
 	private Date dataCadastro;
+	
+	public Cliente(){
+		
+	}
+	
+	public Cliente(Long id, String nome, String login, String senha, String perfil, String cpf, String telefone,
+			String email, Date dataNascimento, Date dataCadastro) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.login = login;
+		this.senha = senha;
+		this.perfil = perfil;
+		this.cpf = cpf;
+		this.telefone = telefone;
+		this.email = email;
+		this.dataNascimento = dataNascimento;
+		this.dataCadastro = dataCadastro;
+	}
+	
+	//Métodos get e set	
 	public Long getId() {
 		return id;
 	}
@@ -74,6 +95,8 @@ public class Cliente {
 	public void setDataCadastro(Date dataCadastro) {
 		this.dataCadastro = dataCadastro;
 	}
+	
+	//Métodos hashCode
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -90,6 +113,9 @@ public class Cliente {
 		result = prime * result + ((telefone == null) ? 0 : telefone.hashCode());
 		return result;
 	}
+	
+	//Métodos equals
+	
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -151,6 +177,8 @@ public class Cliente {
 			return false;
 		return true;
 	}
+	
+	//Método toString
 	@Override
 	public String toString() {
 		return "Cliente [id=" + id + ", nome=" + nome + ", login=" + login + ", senha=" + senha + ", perfil=" + perfil

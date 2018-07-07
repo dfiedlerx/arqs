@@ -9,6 +9,21 @@ public class Produto {
 	private Categoria categoria;
 	private BigDecimal preco;
 	private String fabricante;
+	
+	public Produto() {
+	}	
+	
+	public Produto(Long id, String nome, String descricao, Categoria categoria, BigDecimal preco, String fabricante) {
+		super();
+		this.id = id;
+		this.nome = nome;
+		this.descricao = descricao;
+		this.categoria = categoria;
+		this.preco = preco;
+		this.fabricante = fabricante;
+	}
+	
+	//Métodos get e set
 	public Long getId() {
 		return id;
 	}
@@ -45,6 +60,8 @@ public class Produto {
 	public void setFabricante(String fabricante) {
 		this.fabricante = fabricante;
 	}
+	
+	//Métodos hashcode
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -57,6 +74,8 @@ public class Produto {
 		result = prime * result + ((preco == null) ? 0 : preco.hashCode());
 		return result;
 	}
+	
+	//Métodos equals
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -98,6 +117,8 @@ public class Produto {
 			return false;
 		return true;
 	}
+	
+	//Método toString
 	@Override
 	public String toString() {
 		return "Produto [id=" + id + ", nome=" + nome + ", descricao=" + descricao + ", categoria=" + categoria
