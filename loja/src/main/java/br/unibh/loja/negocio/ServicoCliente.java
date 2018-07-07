@@ -1,15 +1,15 @@
 package br.unibh.loja.negocio;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.logging.Logger;
+
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+
 import br.unibh.loja.entidades.Cliente;
 
 @Stateless
@@ -25,7 +25,9 @@ public class ServicoCliente implements DAO<Cliente, Long> {
 	public Cliente insert(Cliente c) throws Exception {
 		log.info("Persistindo " + c);
 		em.persist(c);
+		Date date = new Date(System.currentTimeMillis());
 		c.setPerfil("Standard");
+		c.setDataCadastro(date);
 		return c;
 	}
 

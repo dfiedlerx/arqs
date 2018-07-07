@@ -1,5 +1,6 @@
 package br.unibh.loja.controle;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.annotation.PostConstruct;
@@ -9,7 +10,6 @@ import javax.inject.Inject;
 
 import br.unibh.loja.entidades.Categoria;
 import br.unibh.loja.negocio.ServicoCategoria;
-import br.unibh.loja.controle.ControleUtil;
 
 @ManagedBean(name = "categoriamb")
 @ViewScoped
@@ -48,6 +48,15 @@ public class ControleCategoria extends ControleUtil {
 		this.lista = lista;
 	}
 
+	public List<Categoria> getCategorias(){
+		try {
+			return ejb.findAll();
+		}catch (Exception e){
+			mostrarErro(e);
+			return new ArrayList<Categoria>();
+		}
+	}
+	
 	@PostConstruct
 	public void inicializaLista() {
 		try {

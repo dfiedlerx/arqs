@@ -35,11 +35,8 @@
 						<p:inputText id="email" value="#{clientemb.cliente.email}" size="50" />
 						<p:message for="email" errorClass="invalid" />
 						<p:outputLabel value="Data de Nascimento:" />
-						<p:inputText id="dataNascimento" value="#{clientemb.cliente.dataNascimento}" size="20" />
+						<p:calendar id="dataNascimento" value="#{clientemb.cliente.dataNascimento}" size="20" />
 						<p:message for="dataNascimento" errorClass="invalid" />
-						<p:outputLabel value="Data de Cadastro:" />
-						<p:inputText id="dataCadastro" value="#{clientemb.cliente.dataCadastro}" size="20" />
-						<p:message for="dataCadastro" errorClass="invalid" />
 					</p:panelGrid>
 					<p:commandButton id="gravar" action="#{clientemb.gravar}"
 						value="Gravar" update="@all" />

@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	template="/WEB-INF/template/template.xhtml">
+	<ui:define name="content">
+		<h:form id="cad" rendered="#{produtomb.produto != null}">
+			<h:panelGroup id="cadastro">
+				<p:panel>
+					<h:outputText value="Cadastro de Produto"
+						style="font-size:18px;font-weight:bold" />
+					<p:messages autoUpdate="true" closable="true" />
+					<p:panelGrid columns="3" styleClass="ui-noborder">
+						<p:outputLabel value="Nome:" />
+						<p:inputText id="nome" value="#{produtomb.produto.nome}" size="50" />
+						<p:message for="nome" errorClass="invalid" />
+						<p:outputLabel value="Descrição:" />
+						<p:inputText id="descricao" value="#{produtomb.produto.descricao}"
+							size="50" />
+						<p:message for="descricao" errorClass="invalid" />
+						<p:outputLabel value="Categoria " />
+						<h:selectOneMenu id="categoria"
+							value="#{produtomb.produto.categoria}"
+							converter="ConversorCategoria">
+							<f:selectItem itemValue="#{null}" itemLabel="" />
+							<f:selectItems value="#{categoriamb.categorias}" var = "categoria"
+							itemValue="#{categoria}" itemLabel="#{categoria.descricao}"/>
+						</h:selectOneMenu>
+						<p:message for="categoria" errorClass="invalid" />
+						<p:outputLabel value="Preço:" />
+						<p:inputText id="preco" value="#{produtomb.produto.preco}"
+							size="15" />
+						<p:message for="preco" errorClass="invalid" />
+						<p:outputLabel value="Fabricante:" />
+						<p:inputText id="fabricante"
+							value="#{produtomb.produto.fabricante}" size="50" />
+						<p:message for="fabricante" errorClass="invalid" />
+					</p:panelGrid>
+					<p:commandButton id="gravar" action="#{produtomb.gravar}"
+						value="Gravar" update="@all" />
+					<p:commandButton id="cancelar" action="#{produtomb.pesquisar}"
+						value="Voltar" immediate="true" update="@all" />
+				</p:panel>
+			</h:panelGroup>
+		</h:form>
+		<p:panel id="pesquisa" rendered="#{produtomb.produto == null}">
+			<h:outputText value="Lista de Produtos"
+				style="font-size:18px;font-weight:bold" />
+			<h:form id="arg">
+				<p:panelGrid columns="4" styleClass="ui-noborder">
+					<p:outputLabel value="Nome:" />
+					<p:inputText id="nomeArg" value="#{produtomb.nomeArg}" />
+					<p:outputLabel value="Categoria:" />
+					<p:inputText id="descArg" value="#{produtomb.descArg}" />
+					<p:commandButton id="pesquisar" action="#{produtomb.pesquisar}"
+						value="Pesquisar" update="@all" />
+					<p:commandButton id="novo" action="#{produtomb.novo}" value="Novo"
+						update="@all" />
+				</p:panelGrid>
+			</h:form>
+			<h:panelGroup rendered="#{empty produtomb.lista}">
+				<h:outputText value="Nenhum registro foi encontrado" />
+			</h:panelGroup>
+			<h:form id="edt">
+				<p:messages autoUpdate="true" closable="true" />
+				<p:dataTable id="tabela" var="produto" value="#{produtomb.lista}"
+					rendered="#{not empty produtomb.lista}"
+					onrowclick="selectRow('#{produto.id}')" paginator="true" rows="15">
+					<p:column headerText="Id" width="10%" sortBy="#{produto.id}">
+						<div align="center">
+							<h:outputText value="#{produto.id}" />
+						</div>
+					</p:column>
+					<p:column headerText="Nome" width="20%" sortBy="#{produto.nome}">
+						<h:outputText value="#{produto.nome}" />
+					</p:column>
+					<p:column headerText="Categoria" width="20%"
+						sortBy="#{produto.categoria}">
+						<h:outputText value="#{produto.categoria.descricao}" />
+					</p:column>
+					<p:column headerText="Comandos" width="15%">
+						<div align="center">
+							<p:commandLink id="editar"
+								action="#{produtomb.editar(produto.id)}" value="Editar"
+								update="@all" />
+							<h:outputText value=" " />
+							<p:commandLink id="excluir"
+								action="#{produtomb.excluir(produto.id)}" value="Excluir"
+								update="@all">
+								<p:confirm header="Confirmação"
+									message="Você confirma a exclusão do produto #{produto.nome}?"
+									icon="ui-icon-alert" />
+							</p:commandLink>
+						</div>
+					</p:column>
+				</p:dataTable>
+				<p:confirmDialog global="true" showEffect="fade" hideEffect="fade"
+					id="confirmDialog">
+					<p:commandButton value="Sim" type="button"
+						styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+					<p:commandButton value="Não" type="button"
+						styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+				</p:confirmDialog>
+			</h:form>
+		</p:panel>
+	</ui:define>
+</ui:composition>
