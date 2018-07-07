@@ -28,8 +28,8 @@ public class RestCliente {
 	@POST
 	@Path("new")
 	@Produces(MediaType.APPLICATION_JSON)
-	public void incluiCliente(Cliente cliente) throws Exception {
-		sc.insert(cliente);
+	public Cliente incluiCliente(Cliente cliente) throws Exception {
+		return sc.insert(cliente);
 	}
 	
 	 @PUT
