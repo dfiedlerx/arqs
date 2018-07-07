@@ -4,8 +4,13 @@ public class Categoria {
 	
 	private  Long id;
 	private  String descricao;
+	
+	public Categoria () {
 		
-	private Categoria(Long id, String descricao) {
+	}
+	
+	Categoria(Long id, String descricao) {
+		super();
 		this.id = id;
 		this.descricao = descricao;
 	}
