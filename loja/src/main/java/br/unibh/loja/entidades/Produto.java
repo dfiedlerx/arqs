@@ -11,6 +11,7 @@ public class Produto {
 	private String fabricante;
 	
 	public Produto() {
+		super();
 	}	
 	
 	public Produto(Long id, String nome, String descricao, Categoria categoria, BigDecimal preco, String fabricante) {

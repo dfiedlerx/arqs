@@ -6,7 +6,7 @@ public class Categoria {
 	private  String descricao;
 	
 	public Categoria () {
-		
+		super();
 	}
 	
 	Categoria(Long id, String descricao) {

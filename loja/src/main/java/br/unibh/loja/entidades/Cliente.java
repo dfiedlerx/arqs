@@ -16,7 +16,7 @@ public class Cliente {
 	private Date dataCadastro;
 	
 	public Cliente(){
-		
+		super();
 	}
 	
 	public Cliente(Long id, String nome, String login, String senha, String perfil, String cpf, String telefone,
