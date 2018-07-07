@@ -16,6 +16,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
@@ -30,14 +32,14 @@ public class Produto {
 	private Long id;
 	
 	@NotBlank
-	@Max(100)
+	@Size(min=1, max=100)
 	@Pattern(regexp="[A-zÀ-ú.´ ]*", message="Caracteres permitidos: letras, espaços, ponto e aspas simples")
 	@Column(length=100, nullable=false)
 	private String nome;
 	
 	@NotBlank
-	@Max(4000)
-	@Pattern(regexp="[A-zÀ-ú-/-.´ ]*", message="Caracteres permitidos: letras, espaços, barra, traços ,ponto e aspas simples")
+	@Size(min=1, max=4000)
+	@Pattern(regexp="[A-zÀ-ú.-/' ]*", message="Caracteres permitidos: letras, espaços, barra, traços ,ponto e aspas simples")
 	@Column(length=4000, nullable=false)
 	private String descricao;
 	
@@ -51,8 +53,7 @@ public class Produto {
 	private BigDecimal preco;
 	
 	@NotBlank
-	@Max(100)
-	@Min(0)
+	@Size(min=0, max=100)
 	@Pattern(regexp="[A-zÀ-ú.´ ]*", message="Caracteres permitidos: letras, espaços, ponto e aspas simples")
 	@Column(length=100, nullable=false)
 	private String fabricante;

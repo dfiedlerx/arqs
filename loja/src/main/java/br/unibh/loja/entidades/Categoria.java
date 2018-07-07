@@ -10,6 +10,7 @@ import javax.persistence.UniqueConstraint;
 import javax.persistence.Version;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -25,8 +26,8 @@ public class Categoria {
 	private  Long id;
 	
 	@NotBlank
-	@Max(100)
-	@Pattern(regexp="[A-zÀ-ú.´-/ ]*", message="Caracteres permitidos: letras, espaços, barra, traços ,ponto e aspas simples")
+	@Size(min=1, max=100)
+	@Pattern(regexp="[A-zÀ-ú.-/' ]*", message="Caracteres permitidos: letras, espaços, barra, traços ,ponto e aspas simples")
 	@Column(length=100, nullable=false)
 	private  String descricao;
 	
